@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>ThingsBoard REST Test</title>
+</head>
+
+<body>
+    <h1>ThingsBoard REST API Test 1.0.2</h1>
+    <pre id="output">Sending data...</pre>
+
+    <script>
+        const deviceToken = "dA7KsdozCAvwjZ0krwRP"; // Replace with your actual device token
+        const url = "https://ts1.aisense.co/api/v1/" + deviceToken + "/telemetry";
+
+        const payload = {
+            temperature: 25.4,
+            humidity: 70
+        };
+
+        fetch(url, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(payload)
+        })
+            .then(res => {
+                if (res.ok) {
+                    document.getElementById("output").textContent = "✅ Telemetry data sent successfully!";
+                } else {
+                    document.getElementById("output").textContent = `❌ Server responded with status ${res.status}`;
+                }
+            })
+            .catch(err => {
+                document.getElementById("output").textContent = "❌ Error: " + err;
+            });
+    </script>
+</body>
+
+</html>
